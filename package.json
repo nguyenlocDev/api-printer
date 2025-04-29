@@ -17,6 +17,8 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.97",
     "@types/nodemailer": "^6.4.17",
+    "canvas": "^3.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "http-status-codes": "^2.3.0",
@@ -24,13 +26,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.2",
+    "node-thermal-printer": "^4.4.3",
     "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3",
-    "node-thermal-printer": "^4.4.3"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/node": "^22.14.0"
   }
 }

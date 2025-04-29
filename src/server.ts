@@ -4,6 +4,7 @@ import { CONNECT_DB } from "./config/mongo.config";
 import { API } from "./routes";
 import { CONNECT_PT } from "./config/printer.config";
 dotenv.config();
+import cors from "cors";
 // Khởi tạo ứng dụng Express
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
@@ -11,7 +12,7 @@ const HOST = process.env.APP_HOST;
 
 // Middleware để xử lý JSON
 app.use(express.json());
-
+app.use(cors());
 // Route mặc định
 app.get("/", (req: Request, res: Response) => {
   res.json({ message: "API đang hoạt động!" });

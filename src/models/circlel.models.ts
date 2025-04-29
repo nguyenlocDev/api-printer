@@ -76,7 +76,7 @@ export const printest = async () => {
 
 export const printCirclekBill = async (data: any) => {
   const ESC = String.fromCharCode(27);
-  const lineSpacingCommand = ESC + "3" + String.fromCharCode(73);
+  const lineSpacingCommand = ESC + "3" + String.fromCharCode(65);
   const printer = USE_PRINTER();
   printer.print(lineSpacingCommand);
   printer.alignCenter();
@@ -288,40 +288,144 @@ export const printCirclekBill = async (data: any) => {
   printer.bold(false);
   printer.setTextNormal();
   printer.println("----------------------------------------------");
-  printer.tableCustom([
-    {
-      text: data.payment.type + ":",
-      align: "RIGHT",
-      width: 0.5,
-    },
+  if (data.payment.type === "Cash") {
+    printer.tableCustom([
+      {
+        text: data.payment.type + ":",
+        align: "RIGHT",
+        width: 0.5,
+      },
 
-    {
-      text: data.payment.totalPay.toLocaleString() + " VND",
-      align: "RIGHT",
-      width: 0.45,
-    },
-  ]);
-  printer.bold(true);
-  printer.tableCustom([
-    {
-      text: "CHANGE DUE:",
-      align: "RIGHT",
-      width: 0.5,
-    },
+      {
+        text: data.payment.totalPay.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+    printer.bold(true);
+    printer.tableCustom([
+      {
+        text: "CHANGE DUE:",
+        align: "RIGHT",
+        width: 0.5,
+      },
 
-    {
-      text: data.payment.changeDue.toLocaleString(),
-      align: "RIGHT",
-      width: 0.45,
-    },
-  ]);
+      {
+        text: data.payment.changeDue.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+  }
+  if (data.payment.type === "VNPAY") {
+    printer.tableCustom([
+      {
+        text: data.payment.type + ":",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.totalPay.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+    printer.println(`       --Bill No. :${data.payment.billNo}`);
+    printer.println("");
+    printer.println(`       --Trans ID: ${data.payment.transId}`);
+    printer.println(`       --Khong Doi Tra Hang Khi Thanh Toan Bang VNPAY`);
+
+    printer.bold(true);
+    printer.tableCustom([
+      {
+        text: "CHANGE DUE:",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.changeDue.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+  }
+  if (data.payment.type === "MomoQR") {
+    printer.tableCustom([
+      {
+        text: data.payment.type + ":",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.totalPay.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+    printer.println(`       --Bill No. :${data.payment.billNo}`);
+    printer.println("");
+    printer.println(`       --Trans ID: ${data.payment.transId}`);
+    printer.println(`       --Khong Doi Tra Hang Khi Thanh Toan Bang Momo`);
+
+    printer.bold(true);
+    printer.tableCustom([
+      {
+        text: "CHANGE DUE:",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.changeDue.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+  }
+  if (data.payment.type === "Card") {
+    printer.tableCustom([
+      {
+        text: data.payment.type + ":",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.totalPay.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+    printer.println(`       --           ${data.payment.cardType}`);
+    printer.println(`       --ReferenceId: ${data.payment.referenceId}`);
+    printer.println(`       --ApprCode: ${data.payment.apprCode}`);
+    printer.println(`       --  TranID: ${data.payment.tranID}`);
+    printer.bold(true);
+    printer.tableCustom([
+      {
+        text: "CHANGE DUE:",
+        align: "RIGHT",
+        width: 0.5,
+      },
+
+      {
+        text: data.payment.changeDue.toLocaleString() + " VND",
+        align: "RIGHT",
+        width: 0.45,
+      },
+    ]);
+  }
   printer.bold(false);
   printer.println("----------------------------------------------");
   printer.alignCenter();
   printer.code128(data.barcode.toString(), {
     width: 2,
-    height: 60,
+    height: 70,
   });
+  printer.println("");
   printer.println("");
   printer.println("");
   printer.println("");
