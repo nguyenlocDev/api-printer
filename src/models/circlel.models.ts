@@ -11,19 +11,19 @@
 //            {
 //              "articleName": "STING Nuoc Tang Luc Nhan Sam 330ml/1 Chai",
 //              "barcode": "8934588173073",
-//              "sellingPrice": 15000,
+//              "actualPrice": 15000,
 //              "quantity": 1
 //            },
 //            {
 //              "articleName": "STING Nuoc Tang Luc Dau Lon Cao 330ml/1 Lon",
 //              "barcode": "8934588232220",
-//              "sellingPrice": 1000,
+//              "actualPrice": 1000,
 //              "quantity": 1
 //            },
 //            {
 //              "articleName": "STING Nuoc Tang Luc Nhan Sam Lon Cao 330ml/1 Lon",
 //              "barcode": "8934588172229",
-//              "sellingPrice": 1000,
+//              "actualPrice": 1000,
 //              "quantity": 1
 //            }
 //          ],
@@ -31,14 +31,14 @@
 //            {
 //              "articleName": "Binh giu nhiet Red Festival",
 //              "barcode": "701202479686",
-//              "sellingPrice": 350000
+//              "actualPrice": 350000
 //            }
 //          ],
 //          "discount": [
 //            {
 //              "titleDiscount": "NW-Monthly Apr 25-Mua 2 tang 1",
 //              "barcode": "8934588173073",
-//              "sellingPrice": 15000,
+//              "actualPrice": 15000,
 //              "quantity": 1
 //            }
 //          ],
@@ -108,7 +108,7 @@ export const printCirclekBill = async (data: any) => {
       printer.println("  " + item.articleName.slice(0, 42));
       printer.tableCustom([
         {
-          text: "       " + item.sellingPrice.toLocaleString(),
+          text: "       " + item.actualPrice.toLocaleString(),
           align: "LEFT",
           width: 0.33,
         },
@@ -123,7 +123,7 @@ export const printCirclekBill = async (data: any) => {
         {
           text:
             item.type === "product"
-              ? " " + (item.sellingPrice * item.quantity).toLocaleString()
+              ? " " + (item.actualPrice * item.quantity).toLocaleString()
               : " " + (item.discountPrice * item.quantity).toLocaleString(),
           align: "RIGHT",
           width: 0.37,
@@ -139,7 +139,7 @@ export const printCirclekBill = async (data: any) => {
         {
           text:
             item.type === "product"
-              ? (item.sellingPrice * item.quantity).toLocaleString()
+              ? (item.actualPrice * item.quantity).toLocaleString()
               : (item.discountPrice * item.quantity).toLocaleString(),
           align: "RIGHT",
           width: 0.2,
@@ -153,7 +153,7 @@ export const printCirclekBill = async (data: any) => {
         printer.println("  " + item.articleName.slice(0, 42));
         printer.tableCustom([
           {
-            text: "       " + item.sellingPrice.toLocaleString(),
+            text: "       " + item.actualPrice.toLocaleString(),
             align: "LEFT",
             width: 0.33,
           },
@@ -168,7 +168,7 @@ export const printCirclekBill = async (data: any) => {
           {
             text:
               item.type === "product"
-                ? " " + (item.sellingPrice * item.quantity).toLocaleString()
+                ? " " + (item.actualPrice * item.quantity).toLocaleString()
                 : " " + (item.discountPrice * item.quantity).toLocaleString(),
             align: "RIGHT",
             width: 0.37,
@@ -184,7 +184,7 @@ export const printCirclekBill = async (data: any) => {
           {
             text:
               item.type === "product"
-                ? (item.sellingPrice * item.quantity).toLocaleString()
+                ? (item.actualPrice * item.quantity).toLocaleString()
                 : (item.discountPrice * item.quantity).toLocaleString(),
             align: "RIGHT",
             width: 0.2,
@@ -224,11 +224,11 @@ export const printCirclekBill = async (data: any) => {
       text:
         (
           data.product.reduce(
-            (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+            (acc: any, item: any) => acc + item.actualPrice * item.quantity,
             0
           ) +
           data.promotion.reduce(
-            (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+            (acc: any, item: any) => acc + item.actualPrice * item.quantity,
             0
           )
         ).toLocaleString() + " VND",
@@ -249,7 +249,7 @@ export const printCirclekBill = async (data: any) => {
           "-" +
           data.discount
             .reduce(
-              (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+              (acc: any, item: any) => acc + item.actualPrice * item.quantity,
               0
             )
             .toLocaleString() +
@@ -262,15 +262,15 @@ export const printCirclekBill = async (data: any) => {
   printer.bold(true);
   const total =
     data.product.reduce(
-      (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+      (acc: any, item: any) => acc + item.actualPrice * item.quantity,
       0
     ) +
     data.promotion.reduce(
-      (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+      (acc: any, item: any) => acc + item.actualPrice * item.quantity,
       0
     ) -
     data.discount.reduce(
-      (acc: any, item: any) => acc + item.sellingPrice * item.quantity,
+      (acc: any, item: any) => acc + item.actualPrice * item.quantity,
       0
     );
   printer.println(

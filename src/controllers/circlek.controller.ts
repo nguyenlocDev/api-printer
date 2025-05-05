@@ -64,7 +64,7 @@ export const getProductCirclek = async (
     const searchFilter = search
       ? {
           $or: [
-            { articleNameEn: { $regex: search, $options: "i" } },
+            { articleName: { $regex: search, $options: "i" } },
             { barcode: { $regex: search, $options: "i" } },
           ],
         }
@@ -75,7 +75,7 @@ export const getProductCirclek = async (
     const dataStore = await GET_DB_CIRCLEK()
       .collection("product")
       .find(searchFilter, {
-        projection: { barcode: 1, articleName: 1, sellingPrice: 1 },
+        projection: { barcode: 1, articleName: 1, actualPrice: 1 },
       })
       .skip(skip)
       .limit(limit)
